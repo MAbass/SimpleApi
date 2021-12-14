@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
 
 # Create your views here.
 from rest_framework.views import APIView
@@ -11,6 +11,8 @@ from SimpleApiApp.serializers import HeroSerializer
 
 
 class HeroView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         heros = Hero.objects.all()
         heroSerializer = HeroSerializer(heros, many=True)
